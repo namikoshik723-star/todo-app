@@ -1,14 +1,7 @@
-// ==============================
-// 現在表示している日付
-// ==============================
-
 let currentDate = new Date();
 
 
-// ==============================
-// 日付を YYYY-MM-DD にする
-// ==============================
-
+// 日付を保存用の形にする
 function getDateKey(date) {
 
     const year = date.getFullYear();
@@ -21,10 +14,7 @@ function getDateKey(date) {
 }
 
 
-// ==============================
-// 日付を表示する
-// ==============================
-
+// 日付を表示
 function displayDate() {
 
     const year = currentDate.getFullYear();
@@ -40,10 +30,7 @@ function displayDate() {
 }
 
 
-// ==============================
-// 今日の日付に戻る
-// ==============================
-
+// 今日に戻る
 function goToday() {
 
     currentDate = new Date();
@@ -52,10 +39,7 @@ function goToday() {
 }
 
 
-// ==============================
 // 前の日・次の日
-// ==============================
-
 function changeDate(days) {
 
     currentDate.setDate(
@@ -66,42 +50,31 @@ function changeDate(days) {
 }
 
 
-// ==============================
-// 今見ている日の予定を読み込む
-// ==============================
-
+// 今の日付の予定を取得
 function getTasks() {
 
-    const dateKey = getDateKey(currentDate);
+    const key = getDateKey(currentDate);
 
-    const savedTasks =
-        localStorage.getItem("tasks_" + dateKey);
+    const data =
+        localStorage.getItem("tasks_" + key);
 
-    return savedTasks
-        ? JSON.parse(savedTasks)
-        : [];
+    return data ? JSON.parse(data) : [];
 }
 
 
-// ==============================
-// 今見ている日の予定を保存
-// ==============================
-
+// 今の日付の予定を保存
 function saveTasks(tasks) {
 
-    const dateKey = getDateKey(currentDate);
+    const key = getDateKey(currentDate);
 
     localStorage.setItem(
-        "tasks_" + dateKey,
+        "tasks_" + key,
         JSON.stringify(tasks)
     );
 }
 
 
-// ==============================
 // 予定を表示
-// ==============================
-
 function displayTasks() {
 
     const taskList =
@@ -114,7 +87,6 @@ function displayTasks() {
 
     tasks.forEach(function(taskData, index) {
 
-        // タスク本体
         const task =
             document.createElement("div");
 
@@ -122,17 +94,21 @@ function displayTasks() {
             "task " + taskData.status;
 
 
-        // タスク名
+        // 予定の文字
         const text =
             document.createElement("span");
-
-        text.className = "task-text";
 
         text.textContent =
             taskData.text;
 
 
-        // ボタン
+        task.appendChild(text);
+
+
+        // =========================
+        // 長押ししたときだけ出る部分
+        // =========================
+
         const buttons =
             document.createElement("div");
 
@@ -140,10 +116,7 @@ function displayTasks() {
             "task-buttons";
 
 
-        // ==========================
         // できた
-        // ==========================
-
         const doneButton =
             document.createElement("button");
 
@@ -163,10 +136,7 @@ function displayTasks() {
         };
 
 
-        // ==========================
         // できなかった
-        // ==========================
-
         const failedButton =
             document.createElement("button");
 
@@ -186,10 +156,7 @@ function displayTasks() {
         };
 
 
-        // ==========================
         // 削除
-        // ==========================
-
         const deleteButton =
             document.createElement("button");
 
@@ -208,137 +175,141 @@ function displayTasks() {
         };
 
 
-        // ボタンを追加
         buttons.appendChild(doneButton);
 
         buttons.appendChild(failedButton);
 
         buttons.appendChild(deleteButton);
 
-
-        // タスクに追加
-        task.appendChild(text);
-
         task.appendChild(buttons);
 
 
-        // ==========================
-        // 長押し処理
-        // ==========================
+        // =========================
+        // 長押し
+        // =========================
 
-        let pressTimer;
-
-        function startPress(event) {
-
-            event.preventDefault();
-
-            pressTimer = setTimeout(function() {
-
-                task.classList.add(
-                    "show-buttons"
-                );
-
-            }, 600);
-        }
+        let timer;
 
 
-        function cancelPress() {
-
-            clearTimeout(pressTimer);
-        }
-
-
-        // スマホ
+        // スマホで長押し
         task.addEventListener(
             "touchstart",
-            startPress,
+            function(event) {
+
+                event.preventDefault();
+
+                timer = setTimeout(function() {
+
+                    task.classList.add(
+                        "show-buttons"
+                    );
+
+                }, 600);
+            },
             { passive: false }
         );
 
+
         task.addEventListener(
             "touchend",
-            cancelPress
+            function() {
+
+                clearTimeout(timer);
+
+            }
         );
+
 
         task.addEventListener(
             "touchmove",
-            cancelPress
+            function() {
+
+                clearTimeout(timer);
+
+            }
         );
 
 
-        // パソコン
+        // パソコンで長押し
         task.addEventListener(
             "mousedown",
-            startPress
+            function() {
+
+                timer = setTimeout(function() {
+
+                    task.classList.add(
+                        "show-buttons"
+                    );
+
+                }, 600);
+
+            }
         );
+
 
         task.addEventListener(
             "mouseup",
-            cancelPress
+            function() {
+
+                clearTimeout(timer);
+
+            }
         );
+
 
         task.addEventListener(
             "mouseleave",
-            cancelPress
+            function() {
+
+                clearTimeout(timer);
+
+            }
         );
 
 
-        // 画面に追加
         taskList.appendChild(task);
 
     });
 }
 
 
-// ==============================
 // 予定を追加
-// ==============================
-
 function addTask() {
 
     const input =
         document.getElementById("taskInput");
 
-    const taskText =
+    const text =
         input.value.trim();
 
 
-    // 空欄なら何もしない
-    if (taskText === "") {
+    if (text === "") {
 
         return;
+
     }
 
 
     const tasks = getTasks();
 
 
-    // 新しい予定
     tasks.push({
 
-        text: taskText,
+        text: text,
 
-        // 最初は未完了
         status: "yellow"
 
     });
 
 
-    // 保存
     saveTasks(tasks);
 
-
-    // 表示
     displayTasks();
 
 
-    // 入力欄を空にする
     input.value = "";
 }
 
 
-// ==============================
 // 最初に表示
-// ==============================
-
 displayDate();
