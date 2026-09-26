@@ -1,14 +1,19 @@
 let currentDate = new Date();
 
 
-// 日付を保存用の形にする
+// =========================
+// 日付
+// =========================
+
 function getDateKey(date) {
 
     const year = date.getFullYear();
 
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
 
-    const day = String(date.getDate()).padStart(2, "0");
+    const day =
+        String(date.getDate()).padStart(2, "0");
 
     return year + "-" + month + "-" + day;
 }
@@ -50,7 +55,10 @@ function changeDate(days) {
 }
 
 
-// 今の日付の予定を取得
+// =========================
+// データ保存
+// =========================
+
 function getTasks() {
 
     const key = getDateKey(currentDate);
@@ -58,11 +66,12 @@ function getTasks() {
     const data =
         localStorage.getItem("tasks_" + key);
 
-    return data ? JSON.parse(data) : [];
+    return data
+        ? JSON.parse(data)
+        : [];
 }
 
 
-// 今の日付の予定を保存
 function saveTasks(tasks) {
 
     const key = getDateKey(currentDate);
@@ -74,7 +83,10 @@ function saveTasks(tasks) {
 }
 
 
-// 予定を表示
+// =========================
+// タスク表示
+// =========================
+
 function displayTasks() {
 
     const taskList =
@@ -94,19 +106,18 @@ function displayTasks() {
             "task " + taskData.status;
 
 
-        // 予定の文字
+        // タスク文字
         const text =
             document.createElement("span");
 
         text.textContent =
             taskData.text;
 
-
         task.appendChild(text);
 
 
         // =========================
-        // 長押ししたときだけ出る部分
+        // 操作ボタン
         // =========================
 
         const buttons =
@@ -123,17 +134,20 @@ function displayTasks() {
         doneButton.textContent =
             "できた";
 
-        doneButton.onclick = function(event) {
+        doneButton.addEventListener(
+            "click",
+            function(event) {
 
-            event.stopPropagation();
+                event.stopPropagation();
 
-            tasks[index].status =
-                "green";
+                tasks[index].status =
+                    "green";
 
-            saveTasks(tasks);
+                saveTasks(tasks);
 
-            displayTasks();
-        };
+                displayTasks();
+            }
+        );
 
 
         // できなかった
@@ -143,17 +157,20 @@ function displayTasks() {
         failedButton.textContent =
             "できなかった";
 
-        failedButton.onclick = function(event) {
+        failedButton.addEventListener(
+            "click",
+            function(event) {
 
-            event.stopPropagation();
+                event.stopPropagation();
 
-            tasks[index].status =
-                "red";
+                tasks[index].status =
+                    "red";
 
-            saveTasks(tasks);
+                saveTasks(tasks);
 
-            displayTasks();
-        };
+                displayTasks();
+            }
+        );
 
 
         // 削除
@@ -163,16 +180,19 @@ function displayTasks() {
         deleteButton.textContent =
             "削除";
 
-        deleteButton.onclick = function(event) {
+        deleteButton.addEventListener(
+            "click",
+            function(event) {
 
-            event.stopPropagation();
+                event.stopPropagation();
 
-            tasks.splice(index, 1);
+                tasks.splice(index, 1);
 
-            saveTasks(tasks);
+                saveTasks(tasks);
 
-            displayTasks();
-        };
+                displayTasks();
+            }
+        );
 
 
         buttons.appendChild(doneButton);
@@ -185,54 +205,14 @@ function displayTasks() {
 
 
         // =========================
-        // 長押し
+        // スマホ・PC共通の長押し
         // =========================
 
-        let timer;
-
-
-        // スマホで長押し
-        task.addEventListener(
-            "touchstart",
-            function(event) {
-
-                event.preventDefault();
-
-                timer = setTimeout(function() {
-
-                    task.classList.add(
-                        "show-buttons"
-                    );
-
-                }, 600);
-            },
-            { passive: false }
-        );
+        let timer = null;
 
 
         task.addEventListener(
-            "touchend",
-            function() {
-
-                clearTimeout(timer);
-
-            }
-        );
-
-
-        task.addEventListener(
-            "touchmove",
-            function() {
-
-                clearTimeout(timer);
-
-            }
-        );
-
-
-        // パソコンで長押し
-        task.addEventListener(
-            "mousedown",
+            "pointerdown",
             function() {
 
                 timer = setTimeout(function() {
@@ -248,7 +228,7 @@ function displayTasks() {
 
 
         task.addEventListener(
-            "mouseup",
+            "pointerup",
             function() {
 
                 clearTimeout(timer);
@@ -258,7 +238,17 @@ function displayTasks() {
 
 
         task.addEventListener(
-            "mouseleave",
+            "pointercancel",
+            function() {
+
+                clearTimeout(timer);
+
+            }
+        );
+
+
+        task.addEventListener(
+            "pointerleave",
             function() {
 
                 clearTimeout(timer);
@@ -273,7 +263,10 @@ function displayTasks() {
 }
 
 
-// 予定を追加
+// =========================
+// タスク追加
+// =========================
+
 function addTask() {
 
     const input =
@@ -306,10 +299,13 @@ function addTask() {
 
     displayTasks();
 
-
     input.value = "";
+
 }
 
 
+// =========================
 // 最初に表示
+// =========================
+
 displayDate();
