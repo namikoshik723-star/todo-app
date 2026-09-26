@@ -52,7 +52,7 @@ h1 {
 #taskInput {
     flex: 1;
     padding: 9px;
-    font-size: 14px;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 7px;
 }
@@ -122,4 +122,32 @@ h1 {
     .task {
         font-size: 13px;
     }
+}
+/* スマホで勝手に拡大・選択されるのを防ぐ */
+
+html {
+    touch-action: manipulation;
+}
+
+body {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+
+/* 入力欄では文字入力できるようにする */
+
+input {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+
+/* タスクの長押し操作 */
+
+.task {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
 }
