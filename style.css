@@ -2,64 +2,173 @@ body {
     font-family: sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 20px;
+    padding: 15px;
+    color: #333;
 }
 
 .app {
-    max-width: 500px;
+    max-width: 450px;
     margin: 0 auto;
     background-color: white;
-    padding: 25px;
+    padding: 18px;
     border-radius: 15px;
 }
 
 h1 {
     text-align: center;
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+
+/* 日付 */
+
+.date-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.date-area > button {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    padding: 0;
 }
 
 #today {
     text-align: center;
-    color: #666;
+    font-size: 16px;
+    font-weight: bold;
 }
+
+.today-button {
+    font-size: 11px;
+    padding: 4px 8px;
+    margin-top: 4px;
+}
+
+
+/* 入力 */
 
 .input-area {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 7px;
+    margin-bottom: 5px;
 }
 
 #taskInput {
     flex: 1;
-    padding: 12px;
-    font-size: 16px;
+    padding: 9px;
+    font-size: 14px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 7px;
 }
 
-button {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+.input-area > button {
+    padding: 9px 13px;
+    font-size: 13px;
 }
+
+
+/* 説明 */
+
+.help {
+    text-align: center;
+    color: #888;
+    font-size: 11px;
+    margin: 8px 0 15px;
+}
+
+
+/* タスク */
 
 .task {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 10px;
+
+    padding: 9px 10px;
+    margin-bottom: 7px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    user-select: none;
+    -webkit-user-select: none;
 }
+
+
+/* 未完了 */
+
+.yellow {
+    background-color: #fff4bd;
+}
+
+
+/* できた */
 
 .green {
     background-color: #d8f5d0;
 }
 
+
+/* できなかった */
+
 .red {
     background-color: #ffd6d6;
 }
 
+
+/* タスク名 */
+
+.task-text {
+    flex: 1;
+    word-break: break-word;
+}
+
+
+/* 操作ボタン */
+
+.task-buttons {
+    display: none;
+    margin-left: 8px;
+}
+
+.task.show-buttons .task-buttons {
+    display: flex;
+    gap: 3px;
+}
+
 .task-buttons button {
-    margin-left: 5px;
+    font-size: 10px;
+    padding: 5px 6px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+}
+
+
+/* スマホ */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .app {
+        padding: 14px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .task {
+        font-size: 13px;
+    }
 }
