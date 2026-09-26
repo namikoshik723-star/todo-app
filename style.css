@@ -17,12 +17,7 @@ body {
 h1 {
     text-align: center;
     font-size: 22px;
-    margin-top: 5px;
-    margin-bottom: 15px;
 }
-
-
-/* 日付 */
 
 .date-area {
     display: flex;
@@ -35,7 +30,6 @@ h1 {
     width: 40px;
     height: 40px;
     font-size: 24px;
-    padding: 0;
 }
 
 #today {
@@ -47,16 +41,12 @@ h1 {
 .today-button {
     font-size: 11px;
     padding: 4px 8px;
-    margin-top: 4px;
 }
-
-
-/* 入力 */
 
 .input-area {
     display: flex;
     gap: 7px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 #taskInput {
@@ -67,105 +57,66 @@ h1 {
     border-radius: 7px;
 }
 
-.input-area > button {
+.input-area button {
     padding: 9px 13px;
     font-size: 13px;
 }
-
-
-/* 説明 */
 
 .help {
     text-align: center;
     color: #888;
     font-size: 11px;
-    margin: 8px 0 15px;
 }
 
-
-/* タスク */
-
 .task {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 9px 10px;
+    padding: 10px;
     margin-bottom: 7px;
-
     border-radius: 8px;
-
     font-size: 13px;
-
+    position: relative;
     user-select: none;
     -webkit-user-select: none;
 }
-
-
-/* 未完了 */
 
 .yellow {
     background-color: #fff4bd;
 }
 
-
-/* できた */
-
 .green {
     background-color: #d8f5d0;
 }
-
-
-/* できなかった */
 
 .red {
     background-color: #ffd6d6;
 }
 
-
-/* タスク名 */
-
-.task-text {
-    flex: 1;
-    word-break: break-word;
-}
-
-
-/* 操作ボタン */
-
+/* 普段はボタンを完全に隠す */
 .task-buttons {
-    display: none;
-    margin-left: 8px;
+    display: none !important;
+    margin-top: 8px;
+    gap: 5px;
 }
 
+/* 長押ししたときだけ表示 */
 .task.show-buttons .task-buttons {
-    display: flex;
-    gap: 3px;
+    display: flex !important;
 }
 
 .task-buttons button {
-    font-size: 10px;
-    padding: 5px 6px;
     border: none;
-    border-radius: 5px;
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 11px;
     background-color: white;
 }
 
-
-/* スマホ */
-
 @media (max-width: 500px) {
-
     body {
         padding: 8px;
     }
 
     .app {
         padding: 14px;
-    }
-
-    h1 {
-        font-size: 20px;
     }
 
     .task {
