@@ -18,54 +18,169 @@
 
     <div class="app">
 
-        <h1>今日やること</h1>
+        <!-- ヘッダー -->
+        <header class="header">
 
-        <div class="date-area">
+            <h1>今日やること</h1>
 
-            <button onclick="changeDate(-1)">‹</button>
+            <button
+                class="menu-button"
+                onclick="toggleMenu()"
+            >
+                ☰
+            </button>
 
-            <div>
-                <div id="today"></div>
+        </header>
 
-                <button
-                    class="today-button"
-                    onclick="goToday()"
-                >
-                    今日
+        <!-- 右側メニュー -->
+
+
+
+<div
+id="sideMenu"
+ class="side-menu"
+ >
+
+            <div class="side-menu-header">
+
+                <span>メニュー</span>
+
+                <button onclick="toggleMenu()">
+                    ×
                 </button>
+
             </div>
 
-            <button onclick="changeDate(1)">›</button>
 
-        </div>
+            <button onclick="showHome()">
+                🏠 ホーム
+            </button>
 
+            <button onclick="showHistory()">
+                📅 履歴
+            </button>
 
-        <div class="input-area">
+            <button onclick="showStatistics()">
+                📊 集計
+            </button>
 
-            <input
-                type="text"
-                id="taskInput"
-                placeholder="やることを入力"
-            >
+            <button onclick="showImportant()">
+                ⭐ 大事な予定
+            </button>
 
-            <button onclick="addTask()">
-                追加
+            <button onclick="showNotification()">
+                🔔 通知
+            </button>
+
+            <button onclick="showSettings()">
+                ⚙ 設定
             </button>
 
         </div>
 
 
-        <p class="help">
-            ※ やることを長押しすると操作できます
-        </p>
+        <!-- メニューを開いたときの背景 -->
+        <div
+            id="menuOverlay"
+            class="menu-overlay"
+            onclick="toggleMenu()"
+        ></div>
 
 
-        <div id="taskList"></div>
+        <!-- メイン -->
+        <main id="mainContent">
+
+            <!-- 日付 -->
+
+            <div class="date-area">
+
+                <button
+                    class="date-button"
+                    onclick="changeDate(-1)"
+                >
+                    ‹
+                </button>
+
+
+                <div class="date-center">
+
+                    <div id="today"></div>
+
+                    <button
+                        class="today-button"
+                        onclick="goToday()"
+                    >
+                        今日
+                    </button>
+
+                </div>
+
+
+                <button
+                    class="date-button"
+                    onclick="changeDate(1)"
+                >
+                    ›
+                </button>
+
+            </div>
+
+
+            <!-- 入力 -->
+
+            <div class="input-area">
+
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="やることを入力"
+                >
+
+                <button
+                    class="add-button"
+                    onclick="addTask()"
+                >
+                    追加
+                </button>
+
+            </div>
+
+
+            <p class="help">
+                ※ やることを長押しすると操作できます
+            </p>
+
+
+            <!-- タスク一覧 -->
+
+            <div id="taskList"></div>
+
+        </main>
+
+
+
+
+<textarea
+    class="memo"
+    placeholder="めも"
+></textarea>
+
+
+
+
+
+
+
+
+
+
 
     </div>
 
 
     <script src="script.js"></script>
+
+
 
 </body>
 
