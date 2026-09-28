@@ -97,7 +97,6 @@ h1 {
 
     cursor: pointer;
 
-    touch-action: manipulation;
 }
 
 .menu-button:active {
