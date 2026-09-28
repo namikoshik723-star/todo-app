@@ -96,6 +96,8 @@ h1 {
     border-radius: 8px;
 
     cursor: pointer;
+
+    touch-action: manipulation;
 }
 
 .menu-button:active {
