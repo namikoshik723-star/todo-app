@@ -18,7 +18,10 @@
 
     <div class="app">
 
+        <!-- ===================== -->
         <!-- ヘッダー -->
+        <!-- ===================== -->
+
         <header class="header">
 
             <h1>今日やること</h1>
@@ -32,14 +35,15 @@
 
         </header>
 
+
+        <!-- ===================== -->
         <!-- 右側メニュー -->
+        <!-- ===================== -->
 
-
-
-<div
-id="sideMenu"
- class="side-menu"
- >
+        <div
+            id="sideMenu"
+            class="side-menu"
+        >
 
             <div class="side-menu-header">
 
@@ -79,7 +83,10 @@ id="sideMenu"
         </div>
 
 
-        <!-- メニューを開いたときの背景 -->
+        <!-- ===================== -->
+        <!-- メニューを開いた時の背景 -->
+        <!-- ===================== -->
+
         <div
             id="menuOverlay"
             class="menu-overlay"
@@ -87,11 +94,14 @@ id="sideMenu"
         ></div>
 
 
-        <!-- メイン -->
+        <!-- ===================== -->
+        <!-- メイン画面 -->
+        <!-- ===================== -->
+
         <main id="mainContent">
 
-            <!-- 日付 -->
 
+            <!-- 日付 -->
             <div class="date-area">
 
                 <button
@@ -126,8 +136,7 @@ id="sideMenu"
             </div>
 
 
-            <!-- 入力 -->
-
+            <!-- やること入力 -->
             <div class="input-area">
 
                 <input
@@ -146,42 +155,34 @@ id="sideMenu"
             </div>
 
 
+            <!-- 説明 -->
             <p class="help">
                 ※ やることを長押しすると操作できます
             </p>
 
 
             <!-- タスク一覧 -->
-
             <div id="taskList"></div>
 
+
+            <!-- ===================== -->
+            <!-- メモ -->
+            <!-- ===================== -->
+
+            <textarea
+                class="memo"
+                placeholder="めも"
+            ></textarea>
+
+
         </main>
-
-
-
-
-<textarea
-    id="memo"
-    class="memo"
-    placeholder="めも"
-></textarea>
-
-
-
-
-
-
-
-
-
-
 
     </div>
 
 
+    <!-- JavaScript -->
+
     <script src="script.js"></script>
-
-
 
 </body>
 
